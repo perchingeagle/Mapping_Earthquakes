@@ -66,18 +66,19 @@ let baseMaps = {
     "Satellite Streets": satelliteStreets
   };
 
-  // Create the map object with center, zoom level and default layer.
-// let map = L.map('mapid', {
-//     center: [30, 30],
-//     zoom: 2,
-//     layers: [light]
-// })
-
+ 
+// Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
-    center: [43.68108112399995, -79.39119482699992],
-    zoom: 11,
-    layers: [satelliteStreets]
+    center: [30, 30],
+    zoom: 2,
+    layers: [light]
 })
+
+// let map = L.map('mapid', {
+//     center: [43.68108112399995, -79.39119482699992],
+//     zoom: 11,
+//     layers: [satelliteStreets]
+// })
 
 // Pass our map layers into our layers control and add the layers control to the map.
 L.control.layers(baseMaps).addTo(map);
@@ -181,15 +182,21 @@ let torontoHoods = "https://raw.githubusercontent.com/perchingeagle/Mapping_Eart
 //   }).addTo(map);
 // });
 
-d3.json(torontoHoods).then(function(data) {
-    //console.log(data);
+// d3.json(torontoHoods).then(function(data) {
+//     //console.log(data);
+//   // Creating a GeoJSON layer with the retrieved data.
+//   L.geoJson(data, {
+//       pointToLayer:function(feature, latlng){
+//           console.log(feature);
+//           return L.marker(latlng)
+//                   .bindPopup(`<h3>Neighborhood: ${feature.properties.AREA_NAME}</h3>
+//                   <hr/>${feature.properties.AREA_S_CD}</h4>`);
+//       }
+//   }).addTo(map);
+// });
+
+// Retrieve the earthquake GeoJSON data.
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson").then(function(data) {
   // Creating a GeoJSON layer with the retrieved data.
-  L.geoJson(data, {
-      pointToLayer:function(feature, latlng){
-          console.log(feature);
-          return L.marker(latlng)
-                  .bindPopup(`<h3>Neighborhood: ${feature.properties.AREA_NAME}</h3>
-                  <hr/>${feature.properties.AREA_S_CD}</h4>`);
-      }
-  }).addTo(map);
+  L.geoJson(data).addTo(map);
 });
